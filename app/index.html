@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Pulse</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Contributor overview</p>
+          <h1>Project Pulse</h1>
+        </div>
+        <div class="summary-pill">Live workstreams</div>
+      </header>
+
+      <main class="dashboard" aria-live="polite">
+        <section class="overview" aria-label="Project summary">
+          <article class="metric-card">
+            <span class="metric-label">Active</span>
+            <strong id="active-count">0</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Healthy</span>
+            <strong id="healthy-count">0</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">At risk</span>
+            <strong id="risk-count">0</strong>
+          </article>
+        </section>
+
+        <section class="project-grid" id="project-grid" aria-label="Project list"></section>
+      </main>
+    </div>
+
+    <script>
+      fetch('project-data.json')
+        .then((response) => response.json())
+        .then((data) => {
+          const projects = data.projects || [];
+          const grid = document.getElementById('project-grid');
+          const activeCount = document.getElementById('active-count');
+          const healthyCount = document.getElementById('healthy-count');
+          const riskCount = document.getElementById('risk-count');
+
+          activeCount.textContent = projects.filter((project) => project.status === 'Active').length;
+          healthyCount.textContent = projects.filter((project) => project.status === 'Healthy').length;
+          riskCount.textContent = projects.filter((project) => project.status === 'At Risk').length;
+
+          grid.innerHTML = projects
+            .map((project) => {
+              const statusClass = project.status.toLowerCase().replace(/\s+/g, '-');
+              const priorityClass = project.priority.toLowerCase();
+
+              return `
+                <article class="project-card">
+                  <div class="card-header">
+                    <div>
+                      <p class="project-owner">${project.owner}</p>
+                      <h2>${project.name}</h2>
+                    </div>
+                    <span class="status-badge ${statusClass}">${project.status}</span>
+                  </div>
+
+                  <p class="recent-activity">${project.recentActivity}</p>
+
+                  <div class="card-footer">
+                    <span class="priority-label">Priority</span>
+                    <span class="priority-pill ${priorityClass}">${project.priority}</span>
+                  </div>
+                </article>
+              `;
+            })
+            .join('');
+        })
+        .catch((error) => {
+          const grid = document.getElementById('project-grid');
+          grid.innerHTML = `
+            <article class="project-card empty-state">
+              <h2>Unable to load project data</h2>
+              <p>${error.message}</p>
+            </article>
+          `;
+        });
+    </script>
+  </body>
+</html>

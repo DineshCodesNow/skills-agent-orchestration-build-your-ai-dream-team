@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "name": "Atlas Launch",
+      "owner": "Priya N.",
+      "status": "Active",
+      "recentActivity": "Shipping onboarding improvements and release QA notes for the next partner rollout.",
+      "priority": "High"
+    },
+    {
+      "name": "Client Portal",
+      "owner": "Marco D.",
+      "status": "Healthy",
+      "recentActivity": "Analytics dashboard is stable after the latest performance cleanup and migration work.",
+      "priority": "Medium"
+    },
+    {
+      "name": "Knowledge Base",
+      "owner": "Jules R.",
+      "status": "At Risk",
+      "recentActivity": "Content review is behind schedule, and the docs backlog is growing across product lines.",
+      "priority": "High"
+    },
+    {
+      "name": "Ops Insights",
+      "owner": "Alicia T.",
+      "status": "Active",
+      "recentActivity": "New alert thresholds are live, and operations reviews are now running on a weekly cadence.",
+      "priority": "Medium"
+    },
+    {
+      "name": "Design System",
+      "owner": "Noah K.",
+      "status": "Healthy",
+      "recentActivity": "Component updates landed across two core product areas and are being adopted quickly.",
+      "priority": "Low"
+    }
+  ]
+}
